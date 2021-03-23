@@ -1,0 +1,199 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Challenge2 Documentation",
+        "description": "This an API for the second Challenge of Ignite NodeJS",
+        "version": "1.0.0",
+        "contact": {
+            "email": "gui_t900@hotmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create a user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "user name sample",
+                                    "email": "user email sample"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "List all users",
+                "description": "List all users",
+                "parameters":[
+                    {
+                      "name": "user_id",
+                      "in": "header",
+                      "description": "The id of the user that wants to list all users",
+                      "required": true
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+    
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requesting User does not exist/is not an admin"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags": ["Users"],
+                "summary": "Get a User",
+                "description": "Get a User",
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "user_id",
+                      "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "required": true
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "timestamp"
+                                            },
+                                            "updated_at": {
+                                                "type": "timestamp"
+                                            }
+                                        }
+                                   
+                                }
+    
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Turn user into admin",
+                "description": "Turn an user into an admin",
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "user_id",
+                      "schema": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "required": true
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "created_at": {
+                                                "type": "timestamp"
+                                            },
+                                            "updated_at": {
+                                                "type": "timestamp"
+                                            }
+                                        }
+                                   
+                                }
+    
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User does not exist"
+                    }
+                }
+            }
+        }
+    }
+}
